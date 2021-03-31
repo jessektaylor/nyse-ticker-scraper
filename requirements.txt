@@ -1,0 +1,8 @@
+scrapy
+textblob
+psycopg2
+datetime
+selenium
+
+
+

@@ -1,0 +1,26 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: nyse-stock-ticker-spider
+spec:
+  schedule: "0 9 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: nyse-stock-ticker-spider
+            image: jessecow7/nyse-ticker-scraper:latest
+            imagePullPolicy: Always
+            env:
+            - name: postgrespassword
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgrespassword
+            - name: postgreshost
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: postgreshost
+          restartPolicy: OnFailure
